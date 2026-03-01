@@ -1,0 +1,196 @@
+--7.  Liste os atores que participaram de mais de 20 filmes.
+
+select 
+ 	a.actor_id as "ID",
+	a.first_name as "Nome",
+	a.last_name as "Sobrenome",
+	count(fa.actor_id) as "Total de Filmes"
+from actor a 
+join film_actor fa on fa.actor_id = a.actor_id 
+group by a.actor_id, a.first_name, a.last_name
+having count(fa.actor_id) > 20 
+order by count(fa.actor_id) asc, a.first_name asc, a.last_name asc
+
+ID |Nome       |Sobrenome   |Total de Filmes|
+---+-----------+------------+---------------+
+163|Christopher|West        |             21|
+ 69|Kenneth    |Paltrow     |             21|
+ 25|Kevin      |Bloom       |             21|
+ 87|Spencer    |Peck        |             21|
+110|Susan      |Davis       |             21|
+132|Adam       |Hopper      |             22|
+ 10|Christian  |Gable       |             22|
+ 18|Dan        |Torn        |             22|
+  3|Ed         |Chase       |             22|
+156|Fay        |Wood        |             22|
+134|Gene       |Hopkins     |             22|
+  4|Jennifer   |Davis       |             22|
+194|Meryl      |Allen       |             22|
+166|Nick       |Degeneres   |             22|
+109|Sylvester  |Dern        |             22|
+152|Ben        |Harris      |             23|
+193|Burt       |Temple      |             23|
+126|Frances    |Tomei       |             23|
+ 96|Gene       |Willis      |             23|
+ 67|Jessica    |Bailey      |             23|
+178|Lisa       |Monroe      |             23|
+ 70|Michelle   |Mcconaughey |             23|
+ 32|Tim        |Hackman     |             23|
+ 75|Burt       |Posey       |             24|
+ 24|Cameron    |Streep      |             24|
+ 77|Cary       |Mcconaughey |             24|
+ 89|Charlize   |Dench       |             24|
+189|Cuba       |Birch       |             24|
+116|Dan        |Streep      |             24|
+182|Debbie     |Akroyd      |             24|
+ 47|Julia      |Barrymore   |             24|
+138|Lucille    |Dee         |             24|
+170|Mena       |Hopper      |             24|
+174|Michael    |Bening      |             24|
+ 33|Milla      |Peck        |             24|
+ 46|Parker     |Goldberg    |             24|
+100|Spencer    |Depp        |             24|
+ 34|Audrey     |Olivier     |             25|
+ 19|Bob        |Fawcett     |             25|
+ 61|Christian  |Neeson      |             25|
+118|Cuba       |Allen       |             25|
+ 93|Ellen      |Presley     |             25|
+ 51|Gary       |Phoenix     |             25|
+172|Groucho    |Williams    |             25|
+131|Jane       |Jackman     |             25|
+180|Jeff       |Silverstone |             25|
+  9|Joe        |Swank       |             25|
+121|Liza       |Bergman     |             25|
+114|Morgan     |Mcdormand   |             25|
+  2|Nick       |Wahlberg    |             25|
+162|Oprah      |Kilmer      |             25|
+ 54|Penelope   |Pinkett     |             25|
+112|Russell    |Bacall      |             25|
+122|Salma      |Nolte       |             25|
+ 38|Tom        |Mckellen    |             25|
+ 11|Zero       |Cage        |             25|
+165|Al         |Garland     |             26|
+ 52|Carmen     |Hunt        |             26|
+ 22|Elvis      |Marx        |             26|
+ 48|Frances    |Day-Lewis   |             26|
+ 73|Gary       |Penn        |             26|
+151|Geoffrey   |Heston      |             26|
+ 78|Groucho    |Sinatra     |             26|
+164|Humphrey   |Willis      |             26|
+ 99|Jim        |Mostel      |             26|
+ 43|Kirk       |Jovovich    |             26|
+159|Laura      |Brody       |             26|
+167|Laurence   |Bullock     |             26|
+124|Scarlett   |Bening      |             26|
+ 72|Sean       |Williams    |             26|
+173|Alan       |Dreyfuss    |             27|
+ 49|Anne       |Cronyn      |             27|
+190|Audrey     |Bailey      |             27|
+ 98|Chris      |Bridges     |             27|
+ 59|Dustin     |Tautou      |             27|
+ 16|Fred       |Costner     |             27|
+177|Gene       |Mckellen    |             27|
+ 86|Greg       |Chaplin     |             27|
+130|Greta      |Keitel      |             27|
+195|Jayne      |Silverstone |             27|
+ 21|Kirsten    |Paltrow     |             27|
+ 97|Meg        |Hawke       |             27|
+113|Morgan     |Hopkins     |             27|
+137|Morgan     |Williams    |             27|
+120|Penelope   |Monroe      |             27|
+ 42|Tom        |Miranda     |             27|
+175|William    |Hackman     |             27|
+141|Cate       |Harris      |             28|
+ 15|Cuba       |Olivier     |             28|
+ 56|Dan        |Harris      |             28|
+ 39|Goldie     |Brody       |             28|
+115|Harrison   |Bale        |             28|
+145|Kim        |Allen       |             28|
+ 79|Mae        |Hoffman     |             28|
+154|Meryl      |Gibson      |             28|
+ 74|Milla      |Keitel      |             28|
+171|Olympia    |Pfeiffer    |             28|
+ 80|Ralph      |Cruz        |             28|
+ 29|Alec       |Wayne       |             29|
+ 36|Burt       |Dukakis     |             29|
+179|Ed         |Guiness     |             29|
+184|Humphrey   |Garland     |             29|
+ 62|Jayne      |Neeson      |             29|
+ 41|Jodie      |Degeneres   |             29|
+192|John       |Suvari      |             29|
+ 40|Johnny     |Cage        |             29|
+  5|Johnny     |Lollobrigida|             29|
+176|Jon        |Chase       |             29|
+169|Kenneth    |Hoffman     |             29|
+196|Bela       |Walken      |             30|
+128|Cate       |Mcqueen     |             30|
+129|Daryl      |Crawford    |             30|
+  7|Grace      |Mostel      |             30|
+191|Gregory    |Gooding     |             30|
+ 57|Jude       |Cruise      |             30|
+ 20|Lucille    |Tracy       |             30|
+103|Matthew    |Leigh       |             30|
+ 53|Mena       |Temple      |             30|
+185|Michael    |Bolger      |             30|
+ 44|Nick       |Stallone    |             30|
+ 64|Ray        |Johansson   |             30|
+133|Richard    |Penn        |             30|
+ 68|Rip        |Winslet     |             30|
+188|Rock       |Dukakis     |             30|
+ 14|Vivien     |Bergen      |             30|
+125|Albert     |Nolte       |             31|
+ 76|Angelina   |Astaire     |             31|
+ 95|Daryl      |Wahlberg    |             31|
+147|Fay        |Winslet     |             31|
+155|Ian        |Tandy       |             31|
+142|Jada       |Ryder       |             31|
+ 84|James      |Pitt        |             31|
+ 12|Karl       |Berry       |             31|
+ 66|Mary       |Tandy       |             31|
+ 85|Minnie     |Zellweger   |             31|
+104|Penelope   |Cronyn      |             31|
+143|River      |Dean        |             31|
+149|Russell    |Temple      |             31|
+168|Will       |Wilson      |             31|
+ 28|Woody      |Hoffman     |             31|
+ 82|Woody      |Jolie       |             31|
+ 58|Christian  |Akroyd      |             32|
+136|Ed         |Mansfield   |             32|
+157|Greta      |Malden      |             32|
+161|Harvey     |Hope        |             32|
+ 17|Helen      |Voight      |             32|
+123|Julianne   |Dench       |             32|
+ 50|Natalie    |Hopkins     |             32|
+ 45|Reese      |Kilmer      |             32|
+119|Warren     |Jackman     |             32|
+140|Whoopi     |Hurt        |             32|
+146|Albert     |Johansson   |             33|
+ 83|Ben        |Willis      |             33|
+111|Cameron    |Zellweger   |             33|
+139|Ewan       |Gooding     |             33|
+ 27|Julia      |Mcqueen     |             33|
+ 94|Kenneth    |Torn        |             33|
+127|Kevin      |Garland     |             33|
+197|Reese      |West        |             33|
+187|Renee      |Ball        |             33|
+117|Renee      |Tracy       |             33|
+ 26|Rip        |Crawford    |             33|
+ 90|Sean       |Guiness     |             33|
+101|Susan      |Davis       |             33|
+ 65|Angela     |Hudson      |             34|
+150|Jayne      |Nolte       |             34|
+ 92|Kirsten    |Akroyd      |             34|
+105|Sidney     |Crowe       |             34|
+108|Warren     |Nolte       |             34|
+144|Angela     |Witherspoon |             35|
+106|Groucho    |Dunst       |             35|
+ 60|Henry      |Berry       |             35|
+ 13|Uma        |Wood        |             35|
+ 37|Val        |Bolger      |             35|
+158|Vivien     |Basinger    |             35|
+ 81|Scarlett   |Damon       |             36|
+ 23|Sandra     |Kilmer      |             37|
+181|Matthew    |Carrey      |             39|
+198|Mary       |Keitel      |             40|
+102|Walter     |Torn        |             41|
+107|Gina       |Degeneres   |             42|
