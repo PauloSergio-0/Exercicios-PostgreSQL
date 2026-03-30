@@ -1,5 +1,3 @@
---Encontre os clientes que gastaram acima da média geral.
-
 with 
 media_geral as (
 select 
