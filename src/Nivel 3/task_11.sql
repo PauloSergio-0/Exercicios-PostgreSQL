@@ -1,0 +1,320 @@
+--Encontre os clientes que gastaram acima da média geral.
+
+with 
+media_geral as (
+select 
+	round(AVG(p.amount)::numeric,2) as "Média Geral"  
+from payment p 
+)
+select 
+	c.customer_id as "ID",
+	c.first_name ,
+	c.last_name  ,
+	round(AVG(p1.amount)::numeric, 2) as "Média",
+	mg."Média Geral" 	
+from customer c 
+join payment p1 on p1.customer_id = c.customer_id 
+cross join media_geral mg --retorna apens uma linha, neste caso anexo um valor fixo a tabela com cross join
+group by c.customer_id, c.first_name ,c.last_name , mg."Média Geral" 
+having  AVG(p1.amount) > mg."Média Geral" 
+order by "Média" desc
+
+ID |first_name |last_name  |Média|Média Geral|
+---+-----------+-----------+-----+-----------+
+187|Brittany   |Riley      | 5.62|       4.20|
+321|Kevin      |Schuler    | 5.52|       4.20|
+ 19|Ruth       |Martinez   | 5.49|       4.20|
+  3|Linda      |Williams   | 5.45|       4.20|
+311|Paul       |Trout      | 5.39|       4.20|
+310|Daniel     |Cabral     | 5.30|       4.20|
+542|Lonnie     |Tirado     | 5.30|       4.20|
+508|Milton     |Howland    | 5.29|       4.20|
+259|Lena       |Jensen     | 5.16|       4.20|
+293|Mae        |Fletcher   | 5.13|       4.20|
+583|Marshall   |Thorn      | 5.12|       4.20|
+285|Miriam     |Mckinney   | 5.12|       4.20|
+470|Gordon     |Allard     | 5.09|       4.20|
+209|Tonya      |Chapman    | 5.09|       4.20|
+477|Dan        |Paine      | 5.09|       4.20|
+181|Ana        |Bradley    | 5.08|       4.20|
+272|Kay        |Caldwell   | 5.07|       4.20|
+472|Greg       |Robins     | 5.07|       4.20|
+522|Arnold     |Havens     | 5.05|       4.20|
+137|Rhonda     |Kennedy    | 5.04|       4.20|
+345|Carl       |Artis      | 4.99|       4.20|
+ 22|Laura      |Rodriguez  | 4.99|       4.20|
+178|Marion     |Snyder     | 4.99|       4.20|
+ 59|Cheryl     |Murphy     | 4.99|       4.20|
+591|Kent       |Arsenault  | 4.99|       4.20|
+363|Roy        |Whiting    | 4.99|       4.20|
+526|Karl       |Seal       | 4.97|       4.20|
+459|Tommy      |Collazo    | 4.96|       4.20|
+ 82|Kathryn    |Coleman    | 4.95|       4.20|
+433|Don        |Bone       | 4.95|       4.20|
+284|Sonia      |Gregory    | 4.94|       4.20|
+429|Frederick  |Isbell     | 4.93|       4.20|
+403|Mike       |Way        | 4.93|       4.20|
+462|Warren     |Sherrod    | 4.93|       4.20|
+ 87|Wanda      |Patterson  | 4.92|       4.20|
+398|Antonio    |Meek       | 4.92|       4.20|
+585|Perry      |Swafford   | 4.91|       4.20|
+571|Johnnie    |Chisholm   | 4.90|       4.20|
+550|Guy        |Brownlee   | 4.89|       4.20|
+ 39|Debra      |Nelson     | 4.89|       4.20|
+367|Adam       |Gooch      | 4.89|       4.20|
+ 65|Rose       |Howard     | 4.89|       4.20|
+ 13|Karen      |Jackson    | 4.88|       4.20|
+ 17|Donna      |Thompson   | 4.88|       4.20|
+ 47|Frances    |Parker     | 4.88|       4.20|
+200|Jeanne     |Lawson     | 4.87|       4.20|
+223|Melinda    |Fernandez  | 4.87|       4.20|
+ 49|Joyce      |Edwards    | 4.87|       4.20|
+453|Calvin     |Martel     | 4.86|       4.20|
+346|Arthur     |Simpkins   | 4.86|       4.20|
+315|Kenneth    |Gooden     | 4.85|       4.20|
+ 44|Marie      |Turner     | 4.85|       4.20|
+558|Jimmie     |Eggleston  | 4.85|       4.20|
+464|Jerome     |Kenyon     | 4.85|       4.20|
+ 48|Ann        |Evans      | 4.85|       4.20|
+426|Bradley    |Motley     | 4.84|       4.20|
+482|Maurice    |Crawley    | 4.84|       4.20|
+532|Neil       |Renner     | 4.83|       4.20|
+505|Rafael     |Abney      | 4.83|       4.20|
+491|Rick       |Mattox     | 4.83|       4.20|
+489|Ricardo    |Meador     | 4.83|       4.20|
+509|Raul       |Fortier    | 4.82|       4.20|
+531|Jamie      |Waugh      | 4.82|       4.20|
+ 50|Diane      |Collins    | 4.82|       4.20|
+483|Vernon     |Chapa      | 4.81|       4.20|
+127|Elaine     |Stevens    | 4.81|       4.20|
+467|Alvin      |Deloach    | 4.81|       4.20|
+490|Sam        |Mcduffie   | 4.81|       4.20|
+331|Eric       |Robert     | 4.81|       4.20|
+524|Jared      |Ely        | 4.81|       4.20|
+ 45|Janet      |Phillips   | 4.80|       4.20|
+554|Dwayne     |Olvera     | 4.79|       4.20|
+301|Robert     |Baughman   | 4.79|       4.20|
+389|Alan       |Kahn       | 4.79|       4.20|
+513|Duane      |Tubbs      | 4.79|       4.20|
+349|Joe        |Gilliland  | 4.78|       4.20|
+279|Dianne     |Shelton    | 4.78|       4.20|
+536|Fernando   |Churchill  | 4.77|       4.20|
+372|Steve      |Mackenzie  | 4.77|       4.20|
+484|Roberto    |Vu         | 4.77|       4.20|
+170|Beatrice   |Arnold     | 4.77|       4.20|
+300|John       |Farnsworth | 4.76|       4.20|
+  2|Patricia   |Johnson    | 4.76|       4.20|
+347|Ryan       |Salisbury  | 4.76|       4.20|
+493|Brent      |Harkins    | 4.76|       4.20|
+449|Oscar      |Aquino     | 4.75|       4.20|
+589|Tracy      |Herrmann   | 4.75|       4.20|
+ 41|Stephanie  |Mitchell   | 4.75|       4.20|
+176|June       |Carroll    | 4.74|       4.20|
+265|Jennie     |Terry      | 4.74|       4.20|
+144|Clara      |Shaw       | 4.74|       4.20|
+448|Miguel     |Betancourt | 4.73|       4.20|
+221|Bessie     |Morrison   | 4.73|       4.20|
+594|Eduardo    |Hiatt      | 4.73|       4.20|
+341|Peter      |Menard     | 4.72|       4.20|
+ 92|Tina       |Simmons    | 4.72|       4.20|
+434|Eddie      |Tomlin     | 4.72|       4.20|
+421|Lee        |Hawks      | 4.71|       4.20|
+504|Nathaniel  |Adam       | 4.71|       4.20|
+540|Tyrone     |Asher      | 4.70|       4.20|
+582|Andy       |Vanhorn    | 4.70|       4.20|
+148|Eleanor    |Hunt       | 4.70|       4.20|
+436|Troy       |Quigley    | 4.69|       4.20|
+206|Terri      |Vasquez    | 4.69|       4.20|
+427|Jesus      |Mccartney  | 4.69|       4.20|
+528|Claude     |Herzog     | 4.69|       4.20|
+146|Jamie      |Rice       | 4.69|       4.20|
+432|Edwin      |Burk       | 4.69|       4.20|
+194|Kristen    |Chavez     | 4.68|       4.20|
+292|Misty      |Lambert    | 4.67|       4.20|
+249|Dora       |Medina     | 4.67|       4.20|
+247|Stella     |Moreno     | 4.67|       4.20|
+  7|Maria      |Miller     | 4.67|       4.20|
+273|Priscilla  |Lowe       | 4.67|       4.20|
+149|Valerie    |Black      | 4.67|       4.20|
+460|Leon       |Bostic     | 4.66|       4.20|
+225|Arlene     |Harvey     | 4.66|       4.20|
+140|Eva        |Ramos      | 4.66|       4.20|
+337|Jerry      |Jordon     | 4.66|       4.20|
+479|Zachary    |Hite       | 4.65|       4.20|
+179|Dana       |Hart       | 4.64|       4.20|
+423|Alfred     |Casillas   | 4.64|       4.20|
+240|Marlene    |Welch      | 4.64|       4.20|
+307|Joseph     |Joy        | 4.64|       4.20|
+544|Cody       |Nolen      | 4.64|       4.20|
+343|Douglas    |Graf       | 4.64|       4.20|
+112|Rosa       |Reynolds   | 4.63|       4.20|
+466|Leo        |Ebert      | 4.63|       4.20|
+258|Myrtle     |Fleming    | 4.62|       4.20|
+203|Tara       |Ryan       | 4.62|       4.20|
+495|Charlie    |Bess       | 4.62|       4.20|
+269|Cassandra  |Walters    | 4.61|       4.20|
+379|Carlos     |Coughlin   | 4.61|       4.20|
+487|Hector     |Poindexter | 4.61|       4.20|
+373|Louis      |Leone      | 4.61|       4.20|
+268|Nina       |Soto       | 4.61|       4.20|
+404|Stanley    |Scroggins  | 4.61|       4.20|
+390|Shawn      |Heaton     | 4.60|       4.20|
+193|Katie      |Elliott    | 4.60|       4.20|
+294|Shelly     |Watts      | 4.60|       4.20|
+ 80|Marilyn    |Ross       | 4.59|       4.20|
+212|Wilma      |Richards   | 4.59|       4.20|
+ 86|Jacqueline |Long       | 4.58|       4.20|
+ 21|Michelle   |Clark      | 4.58|       4.20|
+ 26|Jessica    |Hall       | 4.58|       4.20|
+478|Lewis      |Lyman      | 4.57|       4.20|
+195|Vanessa    |Sims       | 4.57|       4.20|
+575|Isaac      |Oglesby    | 4.57|       4.20|
+238|Nellie     |Garrett    | 4.57|       4.20|
+ 78|Lori       |Wood       | 4.57|       4.20|
+501|Ruben      |Geary      | 4.57|       4.20|
+106|Connie     |Wallace    | 4.56|       4.20|
+578|Willard    |Lumpkin    | 4.56|       4.20|
+468|Tim        |Cary       | 4.55|       4.20|
+309|Christopher|Greco      | 4.55|       4.20|
+362|Nicholas   |Barfield   | 4.54|       4.20|
+519|Ron        |Deluca     | 4.54|       4.20|
+590|Seth       |Hannon     | 4.53|       4.20|
+277|Olga       |Jimenez    | 4.53|       4.20|
+469|Wesley     |Bull       | 4.53|       4.20|
+108|Tracy      |Cole       | 4.53|       4.20|
+360|Ralph      |Madrigal   | 4.52|       4.20|
+494|Ramon      |Choate     | 4.52|       4.20|
+119|Sherry     |Marshall   | 4.51|       4.20|
+166|Lynn       |Payne      | 4.51|       4.20|
+497|Gilbert    |Sledge     | 4.51|       4.20|
+368|Harry      |Arce       | 4.51|       4.20|
+ 63|Ashley     |Richardson | 4.51|       4.20|
+296|Ramona     |Hale       | 4.51|       4.20|
+280|Tracey     |Barrett    | 4.51|       4.20|
+210|Ella       |Oliver     | 4.49|       4.20|
+552|Hugh       |Waldrop    | 4.49|       4.20|
+454|Alex       |Gresham    | 4.49|       4.20|
+295|Daisy      |Bates      | 4.49|       4.20|
+205|Eileen     |Carr       | 4.49|       4.20|
+253|Terry      |Carlson    | 4.49|       4.20|
+222|Delores    |Hansen     | 4.49|       4.20|
+120|Sylvia     |Ortiz      | 4.49|       4.20|
+443|Francisco  |Skidmore   | 4.47|       4.20|
+553|Max        |Pitt       | 4.47|       4.20|
+510|Ben        |Easter     | 4.47|       4.20|
+319|Ronald     |Weiner     | 4.47|       4.20|
+560|Jordan     |Archuleta  | 4.47|       4.20|
+237|Tanya      |Gilbert    | 4.47|       4.20|
+ 55|Doris      |Reed       | 4.46|       4.20|
+ 70|Christina  |Ramirez    | 4.46|       4.20|
+545|Julio      |Noland     | 4.46|       4.20|
+172|Bernice    |Willis     | 4.46|       4.20|
+512|Cecil      |Vines      | 4.45|       4.20|
+ 61|Katherine  |Rivera     | 4.45|       4.20|
+ 56|Gloria     |Cook       | 4.45|       4.20|
+155|Gail       |Knight     | 4.45|       4.20|
+211|Stacey     |Montgomery | 4.44|       4.20|
+375|Aaron      |Selby      | 4.44|       4.20|
+242|Glenda     |Frazier    | 4.44|       4.20|
+103|Gladys     |Hamilton   | 4.44|       4.20|
+409|Rodney     |Moeller    | 4.44|       4.20|
+192|Laurie     |Lawrence   | 4.44|       4.20|
+475|Pedro      |Chestnut   | 4.44|       4.20|
+562|Wallace    |Slone      | 4.44|       4.20|
+ 33|Anna       |Hill       | 4.44|       4.20|
+533|Jessie     |Milam      | 4.42|       4.20|
+100|Robin      |Hayes      | 4.42|       4.20|
+ 81|Andrea     |Henderson  | 4.42|       4.20|
+506|Leslie     |Seward     | 4.42|       4.20|
+365|Bruce      |Schwarz    | 4.42|       4.20|
+410|Curtis     |Irby       | 4.41|       4.20|
+400|Bryan      |Hardison   | 4.41|       4.20|
+480|Corey      |Hauser     | 4.41|       4.20|
+ 54|Teresa     |Rogers     | 4.41|       4.20|
+ 58|Jean       |Bell       | 4.41|       4.20|
+352|Albert     |Crouse     | 4.40|       4.20|
+ 83|Louise     |Jenkins    | 4.40|       4.20|
+555|Dwight     |Lombardi   | 4.40|       4.20|
+412|Allen      |Butterfield| 4.40|       4.20|
+565|Jaime      |Nettles    | 4.40|       4.20|
+ 16|Sandra     |Martin     | 4.39|       4.20|
+523|Harvey     |Guajardo   | 4.39|       4.20|
+547|Kurt       |Emmons     | 4.39|       4.20|
+220|Charlene   |Alvarez    | 4.39|       4.20|
+305|Richard    |Mccrary    | 4.39|       4.20|
+476|Derrick    |Bourque    | 4.39|       4.20|
+599|Austin     |Cintron    | 4.38|       4.20|
+535|Javier     |Elrod      | 4.38|       4.20|
+486|Glen       |Talbert    | 4.38|       4.20|
+302|Michael    |Silverman  | 4.37|       4.20|
+289|Violet     |Rodriquez  | 4.37|       4.20|
+266|Nora       |Herrera    | 4.37|       4.20|
+ 37|Pamela     |Baker      | 4.37|       4.20|
+496|Tyler      |Wren       | 4.36|       4.20|
+502|Brett      |Cornwell   | 4.36|       4.20|
+334|Raymond    |Mcwhorter  | 4.35|       4.20|
+541|Darren     |Windham    | 4.35|       4.20|
+324|Gary       |Coy        | 4.35|       4.20|
+488|Shane      |Millard    | 4.35|       4.20|
+518|Gabriel    |Harder     | 4.35|       4.20|
+180|Stacy      |Cunningham | 4.35|       4.20|
+204|Rosemary   |Schmidt    | 4.34|       4.20|
+291|Toni       |Holt       | 4.34|       4.20|
+ 32|Amy        |Lopez      | 4.34|       4.20|
+169|Erica      |Matthews   | 4.34|       4.20|
+ 11|Lisa       |Anderson   | 4.34|       4.20|
+ 67|Kelly      |Torres     | 4.34|       4.20|
+263|Hilda      |Hopkins    | 4.32|       4.20|
+274|Naomi      |Jennings   | 4.32|       4.20|
+102|Crystal    |Ford       | 4.32|       4.20|
+164|Joann      |Gardner    | 4.32|       4.20|
+267|Margie     |Wade       | 4.32|       4.20|
+308|Thomas     |Grigsby    | 4.31|       4.20|
+322|Jason      |Morrissey  | 4.31|       4.20|
+ 68|Nicole     |Peterson   | 4.31|       4.20|
+150|Danielle   |Daniels    | 4.31|       4.20|
+174|Yvonne     |Watkins    | 4.31|       4.20|
+577|Clifton    |Malcolm    | 4.30|       4.20|
+ 89|Julia      |Flores     | 4.30|       4.20|
+465|Floyd      |Gandy      | 4.30|       4.20|
+437|Randall    |Neumann    | 4.29|       4.20|
+ 84|Sara       |Perry      | 4.29|       4.20|
+567|Alfredo    |Mcadams    | 4.29|       4.20|
+329|Frank      |Waggoner   | 4.29|       4.20|
+306|Charles    |Kowalski   | 4.28|       4.20|
+587|Sergio     |Stanfield  | 4.28|       4.20|
+ 98|Lillian    |Griffin    | 4.28|       4.20|
+136|Anita      |Morales    | 4.28|       4.20|
+207|Gertrude   |Castillo   | 4.28|       4.20|
+ 95|Paula      |Bryant     | 4.28|       4.20|
+236|Marcia     |Dean       | 4.27|       4.20|
+234|Claudia    |Fuller     | 4.27|       4.20|
+246|Marian     |Mendoza    | 4.27|       4.20|
+371|Billy      |Poulin     | 4.27|       4.20|
+515|Andre      |Rapp       | 4.26|       4.20|
+336|Joshua     |Mark       | 4.26|       4.20|
+105|Dawn       |Sullivan   | 4.26|       4.20|
+ 46|Catherine  |Campbell   | 4.25|       4.20|
+348|Roger      |Quintanilla| 4.25|       4.20|
+316|Steven     |Curley     | 4.25|       4.20|
+123|Shannon    |Freeman    | 4.25|       4.20|
+125|Ethel      |Webb       | 4.25|       4.20|
+584|Salvador   |Teel       | 4.25|       4.20|
+262|Patsy      |Davidson   | 4.25|       4.20|
+ 88|Bonnie     |Hughes     | 4.24|       4.20|
+593|Rene       |Mcalister  | 4.24|       4.20|
+576|Morris     |Mccarter   | 4.24|       4.20|
+539|Mathew     |Bolin      | 4.24|       4.20|
+ 66|Janice     |Ward       | 4.23|       4.20|
+163|Cathy      |Spencer    | 4.23|       4.20|
+431|Joel       |Francisco  | 4.22|       4.20|
+511|Chester    |Benner     | 4.22|       4.20|
+114|Grace      |Ellis      | 4.22|       4.20|
+ 15|Helen      |Harris     | 4.21|       4.20|
+139|Amber      |Dixon      | 4.21|       4.20|
+ 14|Betty      |White      | 4.21|       4.20|
+569|Dave       |Gardiner   | 4.21|       4.20|
+414|Vincent    |Ralston    | 4.21|       4.20|
+109|Edna       |West       | 4.20|       4.20|
+304|David      |Royal      | 4.20|       4.20|
+573|Byron      |Box        | 4.20|       4.20|
