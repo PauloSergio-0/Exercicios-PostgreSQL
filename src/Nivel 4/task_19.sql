@@ -4,18 +4,18 @@ alugueis as (
     c.customer_id,
     r.rental_id,
     r.rental_date,
-    lag(r.rental_date) over( partition by r.customer_id order by rental_date ) as data_anterior
+    lag(r.rental_date) over( partition by r.customer_id order by rental_date ) as data_anterior --pega a data anterior do aluguel do custumer_id sempre ordenando pela rental_date 
   from customer c
   join rental r on c.customer_id = r.customer_id
 ) select
 
     a.customer_id as "ID",
     concat( c.first_name, ' ', c.last_name ) as "Nome cliente",
-    avg(a.rental_date - a.data_anterior) as "Intervalo médio"
+    avg(a.rental_date - a.data_anterior) as "Intervalo médio"-- faz a média do intervalo entre alugueis 
 
   from alugueis a
   join customer c on c.customer_id = a.customer_id
-  where a.data_anterior is not null
+  where a.data_anterior is not null --descarta as linhas onde a data_anterior é nula
   group by a.customer_id, "Nome cliente"
   order by "Intervalo médio" desc
 
