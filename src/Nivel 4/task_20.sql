@@ -21,7 +21,7 @@ periodos as (
     p.customer_id as "ID",
     concat(c.first_name, ' ', c.last_name)as "Nome",
 
-    COUNT(*) FILTER (WHERE p.periodo = 'ultimos_3') AS ultimos_3,--pega a quantidade de aluguel dos ultimos 3 meses
+    COUNT(*) FILTER (WHERE p.periodo = 'ultimos_3') AS ultimos_3,--pega  a quantidade de aluguel dos ultimos 3 meses
 
     COUNT(*) FILTER (WHERE p.periodo = '3_anteriores') AS anteriores_3--pega a quantidade de aluguel dos 3 meses anteriores
 
