@@ -67,7 +67,7 @@ foco em:
 
 ------------------------------------------------------------------------
 
-## 🔹 Nível 4 --- Window Functions (Nível Analista)
+## 🔹 Nível 4 --- Window Functions 
 
 16. Calcule o faturamento acumulado mês a mês.
 
